@@ -3,7 +3,7 @@ AIO Maintenance is an AI-developed tool that centralizes and manages frequently 
 
 # How to Use
 **Method 1:**
-To use this tool and change it as you please, you can either install Python to your machine from the official website **"HERE"**, download the AIOMaintenance.py file and double click it to run the app.
+To use this tool and change it as you please, you can either install Python to your machine from the official website **"[HERE](https://www.python.org/downloads/)"**, download the AIOMaintenance.py file and double click it to run the app.
 
 **Method 2 (easiest):**
 Download the AIO Maintenance.exe file **"HERE"** and run it. :)

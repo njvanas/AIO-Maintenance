@@ -1,9 +1,11 @@
+
 import os
 import subprocess
 import threading
 import tkinter as tk
 from tkinter import ttk, filedialog, messagebox
 from tkinter.scrolledtext import ScrolledText
+import requests
 
 class AIOMaintenanceApp:
     def __init__(self, root):
@@ -19,6 +21,7 @@ class AIOMaintenanceApp:
 
         self.setup_style()
         self.create_widgets()
+        self.fetch_scripts_if_needed()
         self.load_scripts()
 
     def setup_style(self):
@@ -54,11 +57,27 @@ class AIOMaintenanceApp:
         self.log_viewer = ScrolledText(self.root, height=10, bg="#1e1e1e", fg="#d4d4d4", insertbackground="#ffffff", state='disabled')
         self.log_viewer.pack(fill='both', expand=True, padx=10, pady=(0, 10))
 
+    def fetch_scripts_if_needed(self):
+        os.makedirs(self.script_dir, exist_ok=True)
+        existing = os.listdir(self.script_dir)
+        if not existing:
+            files = [
+                "example_script.bat",
+                "example_script.ps1"
+            ]
+            base_url = "https://raw.githubusercontent.com/njvanas/AIO-Maintenance/main/scripts/"
+            for file in files:
+                try:
+                    r = requests.get(base_url + file)
+                    if r.status_code == 200:
+                        with open(os.path.join(self.script_dir, file), 'w', encoding='utf-8') as f:
+                            f.write(r.text)
+                except Exception as e:
+                    print(f"Error downloading {file}: {e}")
+
     def load_scripts(self):
         self.scripts = []
         self.script_listbox.delete(0, tk.END)
-        if not os.path.exists(self.script_dir):
-            os.makedirs(self.script_dir)
         for file in os.listdir(self.script_dir):
             if file.endswith((".ps1", ".bat", ".cmd")):
                 self.scripts.append(file)

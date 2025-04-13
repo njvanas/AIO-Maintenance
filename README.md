@@ -57,4 +57,4 @@ Licensed under the MIT License.
 
 ---
 
-Built with ❤️ by @Dolfie
+Built with ❤️ by [@Dolfie](https://github.com/njvanas)

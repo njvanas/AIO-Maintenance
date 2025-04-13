@@ -23,7 +23,7 @@ jobs:
 
       - name: 🔧 Build EXE with PyInstaller
         run: |
-          pyinstaller --onefile --windowed --icon=assets/icon.ico AIOMaintenance.py
+          pyinstaller --onefile --windowed --clean --noupx --icon=assets/icon.ico --version-file=version.txt AIOMaintenance.py
         shell: cmd
 
       - name: 🚀 Create GitHub Release and Upload EXE

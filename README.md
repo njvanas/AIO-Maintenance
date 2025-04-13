@@ -1,19 +1,34 @@
-# 🛠️ AIO Maintenance Tool
+# 🛠️ AIO Maintenance Tool – CustomTkinter Edition
 
-A GUI-based script launcher with dark mode, live script editing, progress bar, and real-time output logging.
+A sleek, dark-mode GUI for managing and running your automation scripts with style.
 
-## ✅ Features
-- Auto-downloads scripts from GitHub on first run
-- Runs `.ps1`, `.bat`, or `.cmd` scripts
-- Live editing and preview of scripts
-- Realtime output logging
-- Dark mode GUI with modern layout
+## 🔥 Features
+- Beautiful CustomTkinter interface
+- Auto-downloads example scripts from GitHub
+- Edit scripts live in the app
+- Run PowerShell or BAT scripts
+- Live log viewer and output window
+- Progress bar + Open Scripts and Log buttons
 
-## 📦 Download EXE
-[Download Latest Release](https://github.com/njvanas/AIO-Maintenance/releases/latest)
+## ⚙️ Setup
 
-## 🔗 Source
-[Main GitHub Repo](https://github.com/njvanas/AIO-Maintenance)
+1. Install requirements:
+```
+pip install -r requirements.txt
+```
+
+2. Build with PyInstaller:
+```
+pyinstaller --onefile --windowed --clean --noupx AIOMaintenance.py
+```
+
+3. Or just run:
+```
+build.bat
+```
+
+## 📦 Output
+Your `.exe` will appear in the `dist/` folder.
 
 ## 📃 License
-MIT License
+MIT License — free for personal and commercial use.

@@ -1,2 +1,5 @@
 requests
+urllib3
+idna
+chardet
 customtkinter

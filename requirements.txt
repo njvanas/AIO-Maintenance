@@ -1,5 +1,5 @@
 requests
+customtkinter
 urllib3
 idna
 chardet
-customtkinter

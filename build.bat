@@ -1,5 +1,8 @@
 @echo off
-REM Build the project using PyInstaller with hidden import for requests
-pyinstaller --onefile --windowed --clean --noupx --hidden-import=requests AIOMaintenance.py
+REM Build the executable and make sure hidden modules are bundled
+pyinstaller --onefile --windowed --clean --noupx ^
+  --hidden-import=requests ^
+  --hidden-import=customtkinter ^
+  AIOMaintenance.py
 
 pause

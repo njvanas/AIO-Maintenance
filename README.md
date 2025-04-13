@@ -17,9 +17,6 @@ No install needed. Just download, extract, and run.
 
 ![Screenshot](https://njvanas.github.io/AIO-Maintenance-Demo/images/screenshot.png)
 
-> 💡 Check out the full visual demo here:  
-> 🔗 [https://njvanas.github.io/AIO-Maintenance-Demo/](https://njvanas.github.io/AIO-Maintenance-Demo/)
-
 ---
 
 ## ✨ Features

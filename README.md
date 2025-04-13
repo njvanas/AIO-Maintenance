@@ -40,3 +40,21 @@ No install needed. Just download, extract, and run.
    git clone https://github.com/njvanas/AIO-Maintenance.git
    cd AIO-Maintenance
    python AIOMaintenance.py
+3. Drop your .bat, .cmd, or .ps1 scripts into the scripts/ folder.
+
+---
+
+## 🤝 Contributing
+
+Got an idea? Bug? Enhancement request?
+Open an issue or pull request — all contributions are welcome!
+
+---
+
+## 📃 License
+
+Licensed under the MIT License.
+
+---
+
+Built with ❤️ by @Dolfie

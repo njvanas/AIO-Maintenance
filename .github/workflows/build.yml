@@ -5,6 +5,9 @@ on:
     branches: [main]
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: windows-latest
@@ -18,7 +21,7 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: 📦 Install PyInstaller
+      - name: 📦 Install Dependencies
         run: pip install pyinstaller
 
       - name: 🏷️ Bump Version Tag
@@ -55,4 +58,4 @@ jobs:
           name: "Release ${{ steps.version.outputs.new_tag }}"
           files: dist/AIOMaintenance.exe
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

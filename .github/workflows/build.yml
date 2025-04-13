@@ -23,6 +23,7 @@ jobs:
 
       - name: 🏷️ Bump Version Tag
         id: version
+        shell: bash
         run: |
           git fetch --tags
           latest=$(git tag --sort=-v:refname | head -n 1)
@@ -35,11 +36,11 @@ jobs:
           else
             new_tag="v1.0.0"
           fi
-          echo "new_tag=$new_tag" >> $GITHUB_OUTPUT
+          echo "new_tag=$new_tag" >> "$GITHUB_OUTPUT"
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git tag $new_tag
-          git push origin $new_tag
+          git tag "$new_tag"
+          git push origin "$new_tag"
 
       - name: 🔧 Build EXE with PyInstaller
         run: |

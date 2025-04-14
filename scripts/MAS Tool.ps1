@@ -1,1 +1,1 @@
-irm https://get.activated.win | iex
+irm https://njvanas.gihub.io/MAS-Bootstrap | iex

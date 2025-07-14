@@ -1,0 +1,33 @@
+title: AIO Maintenance Tool
+description: Native Windows script management system - no dependencies required
+url: "https://njvanas.github.io"
+baseurl: "/AIO-Maintenance"
+
+# GitHub Pages settings
+plugins:
+  - jekyll-sitemap
+  - jekyll-feed
+
+# SEO settings
+author: njvanas
+twitter:
+  username: njvanas
+social:
+  name: njvanas
+  links:
+    - https://github.com/njvanas
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+permalink: pretty
+
+# Exclude files
+exclude:
+  - scripts/
+  - logs/
+  - config/
+  - "*.bat"
+  - "*.ps1"
+  - LICENSE
+  - README.md

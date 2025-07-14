@@ -53,7 +53,9 @@ AIO-Maintenance/
 - Empty Downloads folder
 - Empty Recycle Bin
 - Reset Windows Update cache
-- System maintenance utilities
+- System cleanup utilities
+- Network diagnostics
+- Registry backup tool
 
 ## 🛡️ Security Features
 

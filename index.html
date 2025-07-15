@@ -6,461 +6,336 @@
     <title>AIO Maintenance Tool - Native Windows Edition</title>
     <meta name="description" content="Download the AIO Maintenance Tool - A powerful, native Windows script management system that requires no external dependencies.">
     <link rel="icon" type="image/x-icon" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNCIgZmlsbD0iIzJkM2E0ZiIvPgo8cGF0aCBkPSJNOCA4aDE2djJIOHptMCA2aDE2djJIOHptMCA2aDEydjJIOHoiIGZpbGw9IiNmZmYiLz4KPC9zdmc+">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        html {
+            scroll-behavior: smooth;
         }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
         }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
+        
+        ::-webkit-scrollbar-track {
+            background: #1e293b;
         }
-
-        header {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            padding: 1rem 0;
-            margin-bottom: 2rem;
+        
+        ::-webkit-scrollbar-thumb {
+            background: #475569;
+            border-radius: 4px;
         }
-
-        .header-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            color: white;
-            text-decoration: none;
-        }
-
-        .logo-icon {
-            width: 40px;
-            height: 40px;
-            background: #2d3a4f;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 18px;
-        }
-
-        .logo h1 {
-            font-size: 1.5rem;
-            font-weight: 600;
-        }
-
-        .github-link {
-            color: white;
-            text-decoration: none;
-            padding: 8px 16px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 6px;
-            transition: all 0.3s ease;
-        }
-
-        .github-link:hover {
-            background: rgba(255, 255, 255, 0.1);
-            transform: translateY(-1px);
-        }
-
-        .hero {
-            text-align: center;
-            color: white;
-            margin-bottom: 3rem;
-        }
-
-        .hero h2 {
-            font-size: 3rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            max-width: 600px;
-            margin: 0 auto 2rem;
-        }
-
-        .download-section {
-            background: white;
-            border-radius: 16px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        .download-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-bottom: 2rem;
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 12px 24px;
-            border: none;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            font-size: 1rem;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-        }
-
-        .btn-secondary {
-            background: #f8f9fa;
-            color: #495057;
-            border: 1px solid #dee2e6;
-        }
-
-        .btn-secondary:hover {
-            background: #e9ecef;
-            transform: translateY(-1px);
-        }
-
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-bottom: 3rem;
-        }
-
-        .feature-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 12px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .feature-icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1rem;
-            font-size: 24px;
-            color: white;
-        }
-
-        .feature-card h3 {
-            font-size: 1.3rem;
-            margin-bottom: 0.5rem;
-            color: #2d3a4f;
-        }
-
-        .feature-card p {
-            color: #6c757d;
-        }
-
-        .instructions {
-            background: white;
-            border-radius: 16px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        .instructions h3 {
-            color: #2d3a4f;
-            margin-bottom: 1rem;
-            font-size: 1.5rem;
-        }
-
-        .steps {
-            list-style: none;
-            counter-reset: step-counter;
-        }
-
-        .steps li {
-            counter-increment: step-counter;
-            margin-bottom: 1rem;
-            padding-left: 3rem;
-            position: relative;
-        }
-
-        .steps li::before {
-            content: counter(step-counter);
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 2rem;
-            height: 2rem;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 0.9rem;
-        }
-
-        .code-block {
-            background: #f8f9fa;
-            border: 1px solid #e9ecef;
-            border-radius: 6px;
-            padding: 1rem;
-            font-family: 'Courier New', monospace;
-            margin: 0.5rem 0;
-            overflow-x: auto;
-        }
-
-        .warning {
-            background: #fff3cd;
-            border: 1px solid #ffeaa7;
-            border-radius: 8px;
-            padding: 1rem;
-            margin: 1rem 0;
-            color: #856404;
-        }
-
-        .warning strong {
-            color: #b45309;
-        }
-
-        footer {
-            text-align: center;
-            color: rgba(255, 255, 255, 0.8);
-            padding: 2rem 0;
-            margin-top: 3rem;
-        }
-
-        @media (max-width: 768px) {
-            .hero h2 {
-                font-size: 2rem;
-            }
-
-            .download-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .btn {
-                width: 100%;
-                max-width: 300px;
-                justify-content: center;
-            }
-
-            .header-content {
-                flex-direction: column;
-                gap: 1rem;
-                text-align: center;
-            }
-        }
-
-        .version-info {
-            background: #e3f2fd;
-            border: 1px solid #bbdefb;
-            border-radius: 8px;
-            padding: 1rem;
-            margin: 1rem 0;
-            text-align: center;
-        }
-
-        .file-list {
-            background: #f8f9fa;
-            border-radius: 8px;
-            padding: 1rem;
-            margin: 1rem 0;
-        }
-
-        .file-list ul {
-            list-style-type: none;
-            padding-left: 0;
-        }
-
-        .file-list li {
-            padding: 0.5rem 0;
-            border-bottom: 1px solid #e9ecef;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .file-list li:last-child {
-            border-bottom: none;
-        }
-
-        .file-icon {
-            width: 20px;
-            height: 20px;
-            background: #6c757d;
-            border-radius: 3px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 10px;
-            font-weight: bold;
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #64748b;
         }
     </style>
 </head>
-<body>
-    <header>
-        <div class="container">
-            <div class="header-content">
-                <a href="#" class="logo">
-                    <div class="logo-icon">🛠️</div>
-                    <h1>AIO Maintenance</h1>
-                </a>
-                <a href="https://github.com/njvanas/AIO-Maintenance" class="github-link" target="_blank">
-                    View on GitHub
+<body class="font-sans bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 min-h-screen text-white">
+    <!-- Header -->
+    <header class="bg-slate-900/50 backdrop-blur-sm border-b border-slate-700/50">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <div class="p-2 bg-blue-600/20 rounded-lg">
+                        <svg class="w-8 h-8 text-blue-400" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2L2 7v10c0 5.55 3.84 9.739 9 11 5.16-1.261 9-5.45 9-11V7l-10-5z"/>
+                        </svg>
+                    </div>
+                    <h1 class="text-2xl font-bold text-white">AIO Maintenance</h1>
+                </div>
+                <a href="https://github.com/njvanas/AIO-Maintenance" 
+                   class="flex items-center space-x-2 px-4 py-2 border border-blue-400 text-blue-400 hover:bg-blue-400 hover:text-white font-semibold rounded-lg transition-all duration-300">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                    <span>GitHub</span>
                 </a>
             </div>
         </div>
     </header>
 
-    <div class="container">
-        <section class="hero">
-            <h2>Native Windows Script Manager</h2>
-            <p>A powerful, self-contained script management system that requires no external dependencies, Python installation, or code signing certificates.</p>
-        </section>
+    <!-- Hero Section -->
+    <section class="py-20">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-5xl md:text-7xl font-bold text-white mb-4 leading-tight">
+                Native Windows Script Manager
+            </h2>
+            <p class="text-2xl md:text-3xl text-blue-300 font-light mb-8">
+                No dependencies, no installation, no code signing required
+            </p>
+            <div class="w-24 h-1 bg-blue-500 mx-auto mb-8"></div>
+            <p class="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+                A powerful, self-contained script management system that works immediately on any Windows machine. 
+                Built with native Windows tools for maximum compatibility and zero setup requirements.
+            </p>
+        </div>
+    </section>
 
-        <section class="download-section">
-            <h3 style="text-align: center; margin-bottom: 1.5rem; color: #2d3a4f;">Download AIO Maintenance Tool</h3>
-            
-            <div class="version-info">
-                <strong>Latest Version:</strong> <span id="latest-version">Loading...</span> | 
-                <strong>Size:</strong> ~50KB | 
-                <strong>Requirements:</strong> Windows 7+ with PowerShell
+    <!-- Download Section -->
+    <section class="py-20">
+        <div class="container mx-auto px-6">
+            <div class="bg-slate-800/50 rounded-lg p-8 border border-slate-700/50 max-w-4xl mx-auto">
+                <div class="text-center mb-8">
+                    <h3 class="text-2xl font-semibold text-white mb-4">Download AIO Maintenance Tool</h3>
+                    
+                    <div class="bg-slate-900/50 rounded-lg p-4 mb-6 border border-slate-600/50">
+                        <div class="flex flex-wrap items-center justify-center gap-4 text-gray-300">
+                            <span><strong class="text-white">Latest Version:</strong> <span id="latest-version" class="text-blue-400">Loading...</span></span>
+                            <span><strong class="text-white">Size:</strong> ~50KB</span>
+                            <span><strong class="text-white">Requirements:</strong> Windows 7+ with PowerShell</span>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col md:flex-row gap-4 justify-center mb-8">
+                        <a href="#" id="download-latest" 
+                           class="px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors duration-300 shadow-lg hover:shadow-xl flex items-center justify-center space-x-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                            </svg>
+                            <span>Download Latest Release</span>
+                        </a>
+                        <a href="https://github.com/njvanas/AIO-Maintenance/releases" 
+                           class="px-8 py-4 border-2 border-blue-400 text-blue-400 hover:bg-blue-400 hover:text-white font-semibold rounded-lg transition-all duration-300 flex items-center justify-center space-x-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                            </svg>
+                            <span>View All Releases</span>
+                        </a>
+                    </div>
+
+                    <div class="bg-slate-900/50 rounded-lg p-6 border border-slate-600/50">
+                        <h4 class="text-xl font-semibold text-white mb-4">Package Contents</h4>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="flex items-center space-x-3 text-gray-300">
+                                <div class="p-2 bg-green-600/20 rounded">
+                                    <svg class="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <div class="font-medium text-white">ScriptManager.bat</div>
+                                    <div class="text-sm text-gray-400">Main application with interactive menu</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-3 text-gray-300">
+                                <div class="p-2 bg-blue-600/20 rounded">
+                                    <svg class="w-5 h-5 text-blue-400" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <div class="font-medium text-white">tee.bat</div>
+                                    <div class="text-sm text-gray-400">Logging utility for script execution</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-3 text-gray-300">
+                                <div class="p-2 bg-purple-600/20 rounded">
+                                    <svg class="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z"/>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 1v6"/>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 1v6"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <div class="font-medium text-white">scripts/</div>
+                                    <div class="text-sm text-gray-400">Sample maintenance scripts</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-3 text-gray-300">
+                                <div class="p-2 bg-orange-600/20 rounded">
+                                    <svg class="w-5 h-5 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <div class="font-medium text-white">README.md</div>
+                                    <div class="text-sm text-gray-400">Complete documentation and usage guide</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-20">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold text-white mb-4">Why Choose AIO Maintenance?</h2>
+                <div class="w-24 h-1 bg-blue-500 mx-auto mb-8"></div>
+                <p class="text-xl text-gray-300 max-w-2xl mx-auto">
+                    Built for system administrators and power users who need reliable, portable maintenance tools
+                </p>
             </div>
 
-            <div class="download-buttons">
-                <a href="#" id="download-latest" class="btn btn-primary">
-                    📥 Download Latest Release
-                </a>
-                <a href="https://github.com/njvanas/AIO-Maintenance/releases" class="btn btn-secondary" target="_blank">
-                    📋 View All Releases
-                </a>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-slate-800/50 rounded-lg p-6 hover:bg-slate-800/70 transition-colors duration-300 border border-slate-700/50 group">
+                    <div class="p-4 bg-blue-600/20 rounded-full group-hover:bg-blue-600/30 transition-colors duration-300 w-fit mb-4">
+                        <svg class="w-8 h-8 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-white mb-3">100% Native Windows</h3>
+                    <p class="text-gray-300 leading-relaxed">Uses only built-in Windows tools (Batch, PowerShell, CMD). No external dependencies or installations required.</p>
+                </div>
+
+                <div class="bg-slate-800/50 rounded-lg p-6 hover:bg-slate-800/70 transition-colors duration-300 border border-slate-700/50 group">
+                    <div class="p-4 bg-green-600/20 rounded-full group-hover:bg-green-600/30 transition-colors duration-300 w-fit mb-4">
+                        <svg class="w-8 h-8 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-white mb-3">No Installation</h3>
+                    <p class="text-gray-300 leading-relaxed">Just download, extract, and run. Works immediately on any Windows machine without setup or configuration.</p>
+                </div>
+
+                <div class="bg-slate-800/50 rounded-lg p-6 hover:bg-slate-800/70 transition-colors duration-300 border border-slate-700/50 group">
+                    <div class="p-4 bg-purple-600/20 rounded-full group-hover:bg-purple-600/30 transition-colors duration-300 w-fit mb-4">
+                        <svg class="w-8 h-8 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-white mb-3">No Code Signing</h3>
+                    <p class="text-gray-300 leading-relaxed">Avoids certificate requirements entirely by using native script formats that Windows trusts by default.</p>
+                </div>
+
+                <div class="bg-slate-800/50 rounded-lg p-6 hover:bg-slate-800/70 transition-colors duration-300 border border-slate-700/50 group">
+                    <div class="p-4 bg-orange-600/20 rounded-full group-hover:bg-orange-600/30 transition-colors duration-300 w-fit mb-4">
+                        <svg class="w-8 h-8 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-white mb-3">Script Management</h3>
+                    <p class="text-gray-300 leading-relaxed">Create, edit, and run maintenance scripts with automatic logging, templates, and execution history.</p>
+                </div>
+
+                <div class="bg-slate-800/50 rounded-lg p-6 hover:bg-slate-800/70 transition-colors duration-300 border border-slate-700/50 group">
+                    <div class="p-4 bg-red-600/20 rounded-full group-hover:bg-red-600/30 transition-colors duration-300 w-fit mb-4">
+                        <svg class="w-8 h-8 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-white mb-3">Built-in Tools</h3>
+                    <p class="text-gray-300 leading-relaxed">Includes system cleanup, network diagnostics, registry backup, and other essential maintenance utilities.</p>
+                </div>
+
+                <div class="bg-slate-800/50 rounded-lg p-6 hover:bg-slate-800/70 transition-colors duration-300 border border-slate-700/50 group">
+                    <div class="p-4 bg-blue-600/20 rounded-full group-hover:bg-blue-600/30 transition-colors duration-300 w-fit mb-4">
+                        <svg class="w-8 h-8 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-white mb-3">Smart Logging</h3>
+                    <p class="text-gray-300 leading-relaxed">Automatic execution logging with timestamps, error tracking, and detailed system information capture.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Start Section -->
+    <section class="py-20">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold text-white mb-4">Quick Start Guide</h2>
+                <div class="w-24 h-1 bg-blue-500 mx-auto mb-8"></div>
+                <p class="text-xl text-gray-300 max-w-2xl mx-auto">
+                    Get up and running in minutes with these simple steps
+                </p>
             </div>
 
-            <div class="file-list">
-                <h4 style="margin-bottom: 1rem; color: #2d3a4f;">Package Contents:</h4>
-                <ul>
-                    <li>
-                        <div class="file-icon">BAT</div>
-                        <strong>ScriptManager.bat</strong> - Main application with interactive menu
-                    </li>
-                    <li>
-                        <div class="file-icon">BAT</div>
-                        <strong>tee.bat</strong> - Logging utility for script execution
-                    </li>
-                    <li>
-                        <div class="file-icon">📁</div>
-                        <strong>scripts/</strong> - Sample maintenance scripts (System Cleanup, Network Diagnostics, Registry Backup)
-                    </li>
-                    <li>
-                        <div class="file-icon">📄</div>
-                        <strong>README.md</strong> - Complete documentation and usage guide
-                    </li>
-                </ul>
-            </div>
-        </section>
+            <div class="max-w-4xl mx-auto">
+                <div class="space-y-8">
+                    <div class="flex items-start space-x-6">
+                        <div class="flex-shrink-0 w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-lg">1</div>
+                        <div>
+                            <h3 class="text-xl font-semibold text-white mb-2">Download the latest release ZIP file</h3>
+                            <p class="text-gray-300 leading-relaxed">Click the download button above to get the latest version of the AIO Maintenance Tool.</p>
+                        </div>
+                    </div>
 
-        <section class="features">
-            <div class="feature-card">
-                <div class="feature-icon">🖥️</div>
-                <h3>100% Native Windows</h3>
-                <p>Uses only built-in Windows tools (Batch, PowerShell, CMD). No external dependencies or installations required.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🚀</div>
-                <h3>No Installation</h3>
-                <p>Just download, extract, and run. Works immediately on any Windows machine without setup or configuration.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🛡️</div>
-                <h3>No Code Signing</h3>
-                <p>Avoids certificate requirements entirely by using native script formats that Windows trusts by default.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">📝</div>
-                <h3>Script Management</h3>
-                <p>Create, edit, and run maintenance scripts with automatic logging, templates, and execution history.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🔧</div>
-                <h3>Built-in Tools</h3>
-                <p>Includes system cleanup, network diagnostics, registry backup, and other essential maintenance utilities.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">📊</div>
-                <h3>Smart Logging</h3>
-                <p>Automatic execution logging with timestamps, error tracking, and detailed system information capture.</p>
-            </div>
-        </section>
+                    <div class="flex items-start space-x-6">
+                        <div class="flex-shrink-0 w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-lg">2</div>
+                        <div>
+                            <h3 class="text-xl font-semibold text-white mb-2">Extract to any folder on your computer</h3>
+                            <p class="text-gray-300 leading-relaxed">Unzip the downloaded file to your preferred location. No special installation directory required.</p>
+                        </div>
+                    </div>
 
-        <section class="instructions">
-            <h3>🚀 Quick Start Guide</h3>
-            <ol class="steps">
-                <li>Download the latest release ZIP file using the button above</li>
-                <li>Extract the ZIP file to any folder on your computer</li>
-                <li>Right-click <code>ScriptManager.bat</code> and select <strong>"Run as administrator"</strong></li>
-                <li>Use the interactive menu to manage and run your maintenance scripts</li>
-                <li>Access sample scripts, create new ones, or download additional utilities</li>
-            </ol>
+                    <div class="flex items-start space-x-6">
+                        <div class="flex-shrink-0 w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-lg">3</div>
+                        <div>
+                            <h3 class="text-xl font-semibold text-white mb-2">Run as administrator</h3>
+                            <p class="text-gray-300 leading-relaxed">Right-click <code class="bg-slate-700/50 px-2 py-1 rounded text-blue-300">ScriptManager.bat</code> and select <strong class="text-white">"Run as administrator"</strong></p>
+                        </div>
+                    </div>
 
-            <div class="warning">
-                <strong>⚠️ Administrator Rights Required:</strong> Many maintenance tasks require elevated privileges. The tool will automatically prompt for admin rights when needed.
-            </div>
+                    <div class="flex items-start space-x-6">
+                        <div class="flex-shrink-0 w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-lg">4</div>
+                        <div>
+                            <h3 class="text-xl font-semibold text-white mb-2">Use the interactive menu</h3>
+                            <p class="text-gray-300 leading-relaxed">Navigate through the menu options to manage and run your maintenance scripts.</p>
+                        </div>
+                    </div>
 
-            <h4 style="margin-top: 2rem; margin-bottom: 1rem; color: #2d3a4f;">Menu Options:</h4>
-            <div class="code-block">
-[1] Run Script      - Execute any script with automatic logging
-[2] Edit Script     - Open scripts in Notepad++ or Notepad  
-[3] Create New      - Generate new scripts with templates
-[4] View Logs       - Browse execution history
-[5] System Info     - Display system diagnostics
-[6] Download        - Get sample scripts from GitHub
+                    <div class="flex items-start space-x-6">
+                        <div class="flex-shrink-0 w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-lg">5</div>
+                        <div>
+                            <h3 class="text-xl font-semibold text-white mb-2">Access sample scripts and create new ones</h3>
+                            <p class="text-gray-300 leading-relaxed">Download additional utilities or create custom maintenance scripts for your specific needs.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-12 bg-red-900/20 border border-red-800/50 rounded-lg p-6">
+                    <div class="flex items-start space-x-3">
+                        <svg class="w-6 h-6 text-red-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"/>
+                        </svg>
+                        <div>
+                            <h4 class="text-lg font-semibold text-red-400 mb-2">Administrator Rights Required</h4>
+                            <p class="text-gray-300 leading-relaxed">Many maintenance tasks require elevated privileges. The tool will automatically prompt for admin rights when needed.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8 bg-slate-800/50 rounded-lg p-6 border border-slate-700/50">
+                    <h4 class="text-lg font-semibold text-white mb-4">Menu Options:</h4>
+                    <div class="bg-slate-900/50 rounded p-4 font-mono text-sm text-gray-300 leading-relaxed">
+[1] Run Script      - Execute any script with automatic logging<br>
+[2] Edit Script     - Open scripts in Notepad++ or Notepad<br>
+[3] Create New      - Generate new scripts with templates<br>
+[4] View Logs       - Browse execution history<br>
+[5] System Info     - Display system diagnostics<br>
+[6] Download        - Get sample scripts from GitHub<br>
 [7] Settings        - Configure editor, manage logs, backup/restore
+                    </div>
+                </div>
             </div>
-        </section>
-    </div>
+        </div>
+    </section>
 
-    <footer>
-        <div class="container">
-            <p>&copy; 2025 njvanas. Licensed under MIT License. Free for personal and commercial use.</p>
+    <!-- Footer -->
+    <footer class="bg-slate-900/50 border-t border-slate-700/50 py-8">
+        <div class="container mx-auto px-6 text-center">
+            <p class="text-gray-400">
+                &copy; 2025 njvanas. Licensed under MIT License. Free for personal and commercial use.
+            </p>
         </div>
     </footer>
 

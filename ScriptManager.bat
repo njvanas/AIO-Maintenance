@@ -68,7 +68,7 @@ set count=0
 for %%f in ("%SCRIPT_DIR%\*.bat" "%SCRIPT_DIR%\*.ps1" "%SCRIPT_DIR%\*.cmd") do (
     set /a count+=1
     echo [!count!] %%~nxf
-    set "script[!count!]=%%f"
+    set "script[!count!]=%%~f"
 )
 
 if %count%==0 (
@@ -129,7 +129,7 @@ set count=0
 for %%f in ("%SCRIPT_DIR%\*.bat" "%SCRIPT_DIR%\*.ps1" "%SCRIPT_DIR%\*.cmd") do (
     set /a count+=1
     echo [!count!] %%~nxf
-    set "script[!count!]=%%f"
+    set "script[!count!]=%%~f"
 )
 
 if %count%==0 (
@@ -427,7 +427,7 @@ set count=0
 for %%f in ("%~dp0scripts_backup_*.zip") do (
     set /a count+=1
     echo [!count!] %%~nxf
-    set "backup[!count!]=%%f"
+    set "backup[!count!]=%%~f"
 )
 
 if %count%==0 (

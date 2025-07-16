@@ -311,23 +311,23 @@ echo.
 echo Downloading sample scripts...
 
 :: Use PowerShell to download scripts
-powershell -Command "& {
-    $scripts = @{
-        'Clear-BrowserCache.bat' = 'https://raw.githubusercontent.com/njvanas/AIO-Maintenance/main/scripts/Clear%%20Browser%%20Cache%%20and%%20Cookies.bat'
-        'Empty-Downloads.bat' = 'https://raw.githubusercontent.com/njvanas/AIO-Maintenance/main/scripts/Empty%%20Downloads%%20Folder.bat'
-        'Empty-RecycleBin.ps1' = 'https://raw.githubusercontent.com/njvanas/AIO-Maintenance/main/scripts/Empty%%20Recycle%%20Bin.ps1'
-        'Reset-WindowsUpdate.bat' = 'https://raw.githubusercontent.com/njvanas/AIO-Maintenance/main/scripts/Reset%%20Windows%%20Update%%20Cache.bat'
-    }
-    
-    foreach ($script in $scripts.GetEnumerator()) {
-        try {
-            $output = Join-Path '%SCRIPT_DIR%' $script.Key
-            Invoke-WebRequest -Uri $script.Value -OutFile $output -UseBasicParsing
-            Write-Host \"Downloaded: $($script.Key)\"
-        } catch {
-            Write-Host \"Failed to download: $($script.Key)\"
-        }
-    }
+powershell -Command ^
+"& { ^
+    $scripts = @{ ^
+        'Clear-BrowserCache.bat' = 'https://raw.githubusercontent.com/njvanas/AIO-Maintenance/main/scripts/Clear%%20Browser%%20Cache%%20and%%20Cookies.bat'; ^
+        'Empty-Downloads.bat'    = 'https://raw.githubusercontent.com/njvanas/AIO-Maintenance/main/scripts/Empty%%20Downloads%%20Folder.bat'; ^
+        'Empty-RecycleBin.ps1'   = 'https://raw.githubusercontent.com/njvanas/AIO-Maintenance/main/scripts/Empty%%20Recycle%%20Bin.ps1'; ^
+        'Reset-WindowsUpdate.bat'= 'https://raw.githubusercontent.com/njvanas/AIO-Maintenance/main/scripts/Reset%%20Windows%%20Update%%20Cache.bat' ^
+    }; ^
+    foreach ($script in $scripts.GetEnumerator()) { ^
+        try { ^
+            $output = Join-Path '%SCRIPT_DIR%' $script.Key; ^
+            Invoke-WebRequest -Uri $script.Value -OutFile $output -UseBasicParsing; ^
+            Write-Host \"Downloaded: $($script.Key)\"; ^
+        } catch { ^
+            Write-Host \"Failed to download: $($script.Key)\"; ^
+        } ^
+    } ^
 }"
 
 echo.

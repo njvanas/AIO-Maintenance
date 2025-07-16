@@ -13,6 +13,7 @@ A powerful, native Windows script management system that requires no external de
 - **Sample Scripts** - Download common maintenance scripts from GitHub
 - **System Information** - Built-in system diagnostics
 - **Backup/Restore** - Script backup and restore functionality
+- **Configurable Editor** - Choose between Notepad++ or Windows Notepad
 
 ## 🚀 Quick Start
 
@@ -34,12 +35,12 @@ AIO-Maintenance/
 ## 🎯 Menu Options
 
 1. **Run Script** - Execute any script with automatic logging
-2. **Edit Script** - Open scripts in Notepad++ or Notepad
+2. **Edit Script** - Open scripts in your chosen editor (Notepad++ or Notepad)
 3. **Create New Script** - Generate new scripts with templates
 4. **View Logs** - Browse execution history
 5. **System Information** - Display system diagnostics
 6. **Download Sample Scripts** - Get common maintenance scripts
-7. **Settings** - Configure editor, manage logs, backup/restore
+7. **Settings** - Set the default editor, manage logs, backup/restore
 
 ## 🔧 Supported Script Types
 

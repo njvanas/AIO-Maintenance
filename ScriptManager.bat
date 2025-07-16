@@ -20,6 +20,13 @@ if not exist "%SCRIPT_DIR%" mkdir "%SCRIPT_DIR%"
 if not exist "%LOG_DIR%" mkdir "%LOG_DIR%"
 if not exist "%CONFIG_DIR%" mkdir "%CONFIG_DIR%"
 
+set "EDITOR_FILE=%CONFIG_DIR%\editor.cfg"
+if exist "%EDITOR_FILE%" (
+    set /p EDITOR=<"%EDITOR_FILE%"
+) else (
+    call :detect_editor
+)
+
 :: Main menu loop
 :main_menu
 cls
@@ -145,14 +152,7 @@ if not defined script[%script_choice%] (
 set "selected_script=!script[%script_choice%]!"
 echo.
 echo Opening: !selected_script!
-
-:: Try to open with notepad++ first, then fall back to notepad
-where notepad++ >nul 2>&1
-if %errorlevel%==0 (
-    start "" "notepad++" "!selected_script!"
-) else (
-    start "" notepad "!selected_script!"
-)
+start "" "!EDITOR!" "!selected_script!"
 
 echo Script opened in editor.
 echo Press any key to continue...
@@ -210,14 +210,7 @@ if exist "%new_script%" (
 echo.
 echo Script created: %new_script%
 echo Opening in editor...
-
-:: Try to open with notepad++ first, then fall back to notepad
-where notepad++ >nul 2>&1
-if %errorlevel%==0 (
-    start "" "notepad++" "%new_script%"
-) else (
-    start "" notepad "%new_script%"
-)
+start "" "!EDITOR!" "%new_script%"
 
 echo Press any key to continue...
 pause >nul
@@ -358,13 +351,32 @@ if "%settings_choice%"=="4" goto restore_scripts
 goto settings
 
 :set_editor
+cls
+echo ================================================================
+echo                        SET DEFAULT EDITOR
+echo ================================================================
+call :find_npp
 echo.
-echo Current editor detection:
-where notepad++ >nul 2>&1
-if %errorlevel%==0 (
-    echo Notepad++ found - will be used as default
-) else (
-    echo Notepad++ not found - using Windows Notepad
+echo Current editor: !EDITOR!
+echo.
+if defined NPP_PATH (
+    echo [1] Use Notepad++
+)
+echo [2] Use Windows Notepad
+echo [0] Cancel
+set /p ed_choice="Select option: "
+if "%ed_choice%"=="1" (
+    if defined NPP_PATH (
+        set "EDITOR=!NPP_PATH!"
+        echo !EDITOR!>"%EDITOR_FILE%"
+        echo Default editor set to Notepad++.
+    ) else (
+        echo Notepad++ not found on this system.
+    )
+) else if "%ed_choice%"=="2" (
+    set "EDITOR=notepad"
+    echo !EDITOR!>"%EDITOR_FILE%"
+    echo Default editor set to Windows Notepad.
 )
 echo.
 echo Press any key to continue...
@@ -440,6 +452,33 @@ if /i "%restore_confirm%"=="y" (
 echo Press any key to continue...
 pause >nul
 goto settings
+
+:find_npp
+where notepad++ >nul 2>&1
+if %errorlevel%==0 (
+    set "NPP_PATH=notepad++"
+    goto :eof
+)
+if exist "%ProgramFiles%\Notepad++\notepad++.exe" (
+    set "NPP_PATH=%ProgramFiles%\Notepad++\notepad++.exe"
+    goto :eof
+)
+if exist "%ProgramFiles(x86)%\Notepad++\notepad++.exe" (
+    set "NPP_PATH=%ProgramFiles(x86)%\Notepad++\notepad++.exe"
+    goto :eof
+)
+set "NPP_PATH="
+goto :eof
+
+:detect_editor
+call :find_npp
+if defined NPP_PATH (
+    set "EDITOR=!NPP_PATH!"
+) else (
+    set "EDITOR=notepad"
+)
+echo !EDITOR!>"%EDITOR_FILE%"
+goto :eof
 
 :exit_program
 cls

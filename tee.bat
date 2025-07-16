@@ -11,7 +11,7 @@ if "%logfile%"=="" (
 )
 
 :loop
-set /p line=
+set /p line= 2>nul
 if errorlevel 1 goto :eof
 echo !line!
 echo !line! >> "%logfile%"

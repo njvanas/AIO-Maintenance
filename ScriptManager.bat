@@ -94,12 +94,31 @@ echo.
 echo Running: !selected_script!
 echo ================================================================
 
+:: Ensure log directory exists
+if not exist "%LOG_DIR%" mkdir "%LOG_DIR%"
+
+:: Validate script file exists
+if not exist "!selected_script!" (
+    echo.
+    echo Script not found: !selected_script!
+    echo Press any key to continue...
+    pause >nul
+    goto run_script
+)
+
 :: Create log file
 set "timestamp=%date:~-4,4%%date:~-10,2%%date:~-7,2%_%time:~0,2%%time:~3,2%%time:~6,2%"
 set "timestamp=%timestamp: =0%"
 set "logfile=%LOG_DIR%\execution_%timestamp%.log"
 
-echo Script execution started at %date% %time% > "%logfile%"
+:: Initialize log file and handle errors if path is invalid
+echo Script execution started at %date% %time% > "%logfile%" 2>nul
+if errorlevel 1 (
+    echo Failed to create log file: "%logfile%"
+    echo Press any key to continue...
+    pause >nul
+    goto main_menu
+)
 echo Script: !selected_script! >> "%logfile%"
 echo ================================================================ >> "%logfile%"
 

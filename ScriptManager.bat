@@ -276,20 +276,27 @@ echo ================================================================
 echo.
 echo Computer Name: %COMPUTERNAME%
 echo User Name: %USERNAME%
-echo OS Version: 
+echo OS Version:
 ver
 echo.
-echo Processor:
-wmic cpu get name /value | findstr "Name="
-echo.
-echo Memory:
-wmic computersystem get TotalPhysicalMemory /value | findstr "TotalPhysicalMemory="
-echo.
-echo Disk Space:
-wmic logicaldisk get size,freespace,caption /value | findstr "="
-echo.
-echo Network Adapters:
-wmic path win32_NetworkAdapter where NetEnabled=true get Name /value | findstr "Name="
+where wmic >nul 2>&1
+if %errorlevel%==0 (
+    echo Processor:
+    wmic cpu get name /value | findstr "Name="
+    echo.
+    echo Memory:
+    wmic computersystem get TotalPhysicalMemory /value | findstr "TotalPhysicalMemory="
+    echo.
+    echo Disk Space:
+    wmic logicaldisk get size,freespace,caption /value | findstr "="
+    echo.
+    echo Network Adapters:
+    wmic path win32_NetworkAdapter where NetEnabled=true get Name /value | findstr "Name="
+) else (
+    echo Detailed hardware info not available. Using systeminfo...
+    echo.
+    systeminfo
+)
 echo.
 echo ================================================================
 echo Press any key to continue...

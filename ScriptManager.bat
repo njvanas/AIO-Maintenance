@@ -15,6 +15,7 @@ if '%errorlevel%' NEQ '0' (
 set "SCRIPT_DIR=%~dp0scripts"
 set "LOG_DIR=%~dp0logs"
 set "CONFIG_DIR=%~dp0config"
+set "TEE_CMD=%~dp0tee.bat"
 
 if not exist "%SCRIPT_DIR%" mkdir "%SCRIPT_DIR%"
 if not exist "%LOG_DIR%" mkdir "%LOG_DIR%"
@@ -104,9 +105,9 @@ echo ================================================================ >> "%logfi
 
 :: Run the script based on extension
 if /i "!selected_script:~-4!"==".ps1" (
-    powershell -ExecutionPolicy Bypass -File "!selected_script!" 2>&1 | tee "%logfile%"
+    powershell -ExecutionPolicy Bypass -File "!selected_script!" 2>&1 | call "%TEE_CMD%" "%logfile%"
 ) else (
-    call "!selected_script!" 2>&1 | tee "%logfile%"
+    call "!selected_script!" 2>&1 | call "%TEE_CMD%" "%logfile%"
 )
 
 echo.
